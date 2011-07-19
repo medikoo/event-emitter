@@ -1,10 +1,10 @@
 {
 	"name": "event-emitter",
-	"version": "0.1.0",
-	"description": "Event emitter, es5 way with separated private and public parts",
+	"version": "0.0.0",
+	"description": "Event emitter",
 	"keywords": ["event", "events", "trigger", "taks", "observer", "listener"],
 	"author": "Mariusz Nowak <medikoo+event-emitter@medikoo.com> (http://www.medikoo.com/)",
-	"main": "lib/index",
+	"main": "lib",
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/medikoo/event-emitter.git"
