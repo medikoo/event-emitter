@@ -1,8 +1,8 @@
 {
 	"name": "event-emitter",
-	"version": "0.0.0",
-	"description": "Event emitter",
-	"keywords": ["event", "events", "trigger", "taks", "observer", "listener"],
+	"version": "0.1.0",
+	"description": "Basic event emitter for Node.js and browser",
+	"keywords": ["event", "events", "trigger", "observer", "listener", "emitter"],
 	"author": "Mariusz Nowak <medikoo+event-emitter@medikoo.com> (http://www.medikoo.com/)",
 	"main": "lib",
 	"repository": {
@@ -11,6 +11,9 @@
 	},
 	"bugs": {
 		"mail": "medikoo+event-emitter@medikoo.com",
-		"web": "https://github.com/medikoo/clock/issues"
+		"web": "https://github.com/medikoo/event-emitter/issues"
+	},
+	"dependencies": {
+		"es5-ext": "0.6.x"
 	}
 }
