@@ -33,5 +33,3 @@ Node & npm:
 
 	// Emit event
 	myObj.emit('name', arg1/*, arg2, arg3*/);
-
-
