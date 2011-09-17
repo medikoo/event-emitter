@@ -35,8 +35,8 @@ module.exports = function (t, a) {
 	});
 
 	++count;
-	o.emit('test', 1, 2, 4);
-	o.emit('other-test', 1, 3, 1);
+	o.emit({}, 'test', 1, 2, 4);
+	o.emit({}, 'other-test', 1, 3, 1);
 	o.off('test', listener);
 	++count;
 	o.emit('test', 1, 7, 3);
