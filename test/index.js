@@ -40,4 +40,18 @@ module.exports = function (t, a) {
 	o.off('test', listener);
 	++count;
 	o.emit('test', 1, 7, 3);
+
+	count = 0;
+	o.once('off-mid', function () {
+		++count;
+	});
+	o.on('off-mid', listener = function () {
+		++count;
+	});
+	o.on('off-mid', listener = function () {
+		++count;
+	});
+	o.emit('off-mid');
+	a(count, 3, "Run all listeners");
+
 };
