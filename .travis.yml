@@ -3,6 +3,9 @@ node_js:
   - 0.4
   - 0.6
 
+before_script:
+  - ln -s ../ node_modules/event-emitter
+
 notifications:
   email:
     - medikoo+event-emitter@medikoo.com
