@@ -11,7 +11,7 @@
 	},
 	"bugs": {
 		"mail": "medikoo+event-emitter@medikoo.com",
-		"web": "https://github.com/medikoo/event-emitter/issues"
+		"url": "https://github.com/medikoo/event-emitter/issues"
 	},
 	"dependencies": {
 		"es5-ext": "0.7.x"
