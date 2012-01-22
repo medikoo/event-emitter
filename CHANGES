@@ -1,3 +1,11 @@
+v0.1.2  --  2012.01.22
+* Support for emitter argument in emit function, this allows some listeners not
+  to be notified about event
+* allOff - removes all listeners from object
+* All methods returns self object
+* Internal fixes
+* Travis CI integration
+
 v0.1.1  --  2011.08.08
 * Added TAD test suite to devDependencies, configured test commands.
   Tests can be run with 'make test' or 'npm test'
