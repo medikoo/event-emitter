@@ -1,6 +1,6 @@
 {
 	"name": "event-emitter",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Basic event emitter for Node.js and browser",
 	"keywords": ["event", "events", "trigger", "observer", "listener", "emitter"],
 	"author": "Mariusz Nowak <medikoo+event-emitter@medikoo.com> (http://www.medikoo.com/)",
@@ -14,7 +14,7 @@
 		"web": "https://github.com/medikoo/event-emitter/issues"
 	},
 	"dependencies": {
-		"es5-ext": "0.6.x"
+		"es5-ext": "0.7.x"
 	},
 	"scripts": { "test": "./node_modules/tad/bin/tad lib" },
 	"devDependencies": {
