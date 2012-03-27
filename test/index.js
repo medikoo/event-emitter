@@ -6,9 +6,9 @@ module.exports = function (t, a) {
 
 	a(o.propertyIsEnumerable('on'), false, "Properties not enumerable");
 	o.on('test', function (x, y, z) {
-		if (count == 1) {
+		if (count === 1) {
 			a(x + y + z, 7, "Emitted");
-		} else if (count == 2) {
+		} else if (count === 2) {
 			a(x + y + z, 11, "Emitted second time");
 		}
 	});
@@ -27,7 +27,7 @@ module.exports = function (t, a) {
 	});
 
 	o.once('test', function (x, y, z) {
-		if (count == 1) {
+		if (count === 1) {
 			a(x + y + z, 7, "Once");
 		} else {
 			a.never("Once run once");
