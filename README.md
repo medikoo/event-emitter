@@ -33,3 +33,7 @@ Node & npm:
 
 	// Emit event
 	myObj.emit('name', arg1/*, arg2, arg3*/);
+
+## Tests [![Build Status](https://secure.travis-ci.org/medikoo/event-emitter.png?branch=master)](https://secure.travis-ci.org/medikoo/event-emitter)
+
+	$ npm test
