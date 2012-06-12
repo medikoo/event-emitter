@@ -54,4 +54,7 @@ module.exports = function (t, a) {
 	o.emit('off-mid');
 	a(count, 3, "Run all listeners");
 
+	o.once('test', a.never);
+	o.off('test', a.never);
+	o.emit('test');
 };
