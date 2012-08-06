@@ -1,60 +1,56 @@
 'use strict';
 
 module.exports = function (t, a) {
-	var o = Object.create(t({}))
-	  , removed = false, listener, count = 0;
+	var x = t(), y, count, count2, test, listener1, listener2;
 
-	a(o.propertyIsEnumerable('on'), false, "Properties not enumerable");
-	o.on('test', function (x, y, z) {
-		if (count === 1) {
-			a(x + y + z, 7, "Emitted");
-		} else if (count === 2) {
-			a(x + y + z, 11, "Emitted second time");
-		}
-	});
-	o.on('test', listener = function (x, y, z) {
-		if (count === 1) {
-			a(x + y + z, 7, "Emitted second listener");
-		} else {
-			a.never("Removed listener");
-		}
+	x.emit('none');
+
+	test = "Once: ";
+	count = 0;
+	x.once('foo', function (a1, a2, a3) {
+		a(this, x, test + "Context");
+		a.deep([a1, a2, a3], ['foo', x, 15], test + "Arguments");
+		++count;
 	});
 
-	o.on('other-test', function (x, y, z) {
-		if (count === 1) {
-			a(x + y + z, 5, "Other event");
-		}
+	x.emit('foobar');
+	a(count, 0, test + "Not invoked on other event");
+	x.emit('foo', 'foo', x, 15);
+	a(count, 1, test + "Emitted");
+	x.emit('foo');
+	a(count, 1, test + "Emitted once");
+
+	test = "On & Once: ";
+	count = 0;
+	x.on('foo', listener1 = function (a1, a2, a3) {
+		a(this, x, test + "Context");
+		a.deep([a1, a2, a3], ['foo', x, 15], test + "Arguments");
+		++count;
+	});
+	count2 = 0;
+	x.once('foo', listener2 = function (a1, a2, a3) {
+		a(this, x, test + "Context");
+		a.deep([a1, a2, a3], ['foo', x, 15], test + "Arguments");
+		++count2;
 	});
 
-	o.once('test', function (x, y, z) {
-		if (count === 1) {
-			a(x + y + z, 7, "Once");
-		} else {
-			a.never("Once run once");
-		}
-	});
-
-	++count;
-	o.emit({}, 'test', 1, 2, 4);
-	o.emit({}, 'other-test', 1, 3, 1);
-	o.off('test', listener);
-	++count;
-	o.emit('test', 1, 7, 3);
+	x.emit('foobar');
+	a(count, 0, test + "Not invoked on other event");
+	x.emit('foo', 'foo', x, 15);
+	a(count, 1, test + "Emitted");
+	x.emit('foo', 'foo', x, 15);
+	a(count, 2, test + "Emitted twice");
+	a(count2, 1, test + "Emitted once");
+	x.off('foo', listener1);
+	x.emit('foo');
+	a(count, 2, test + "Not emitter after off");
 
 	count = 0;
-	o.once('off-mid', function () {
+	x.once('foo', listener1 = function (x, y, z) {
 		++count;
 	});
-	o.on('off-mid', listener = function () {
-		++count;
-	});
-	o.on('off-mid', listener = function () {
-		++count;
-	});
-	o.emit('off-mid');
-	a(count, 3, "Run all listeners");
 
-	o.once('test', a.never);
-	o.off('test', a.never);
-	o.emit('test');
+	x.off('foo', listener1);
+	x.emit('foo');
+	a(count, 0, "Once Off: Not emitted");
 };
