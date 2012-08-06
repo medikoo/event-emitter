@@ -3,34 +3,44 @@
 var ee = require('../lib/core');
 
 module.exports = function (t, a) {
-	var x = {}, y = {}, count, count2;
+	var x = {}, y = {}, z = {}, count, count2, count3;
 
 	ee(x);
 	ee(y);
+	ee(z);
 
 	count = 0;
 	count2 = 0;
+	count3 = 0;
 	x.on('foo', function () {
 		++count;
 	});
 	y.on('foo', function () {
 		++count2;
 	});
+	z.on('foo', function () {
+		++count3;
+	});
 
 	x.emit('foo');
 	a(count, 1, "Pre pipe, x");
 	a(count2, 0, "Pre pipe, y");
+	a(count3, 0, "Pre pipe, z");
 
 	t(x, y);
 	x.emit('foo');
 	a(count, 2, "Post pipe, x");
 	a(count2, 1, "Post pipe, y");
+	a(count3, 0, "Post pipe, z");
 
 	y.emit('foo');
 	a(count, 2, "Post pipe, on y, x");
 	a(count2, 2, "Post pipe, on y, y");
+	a(count3, 0, "Post pipe, on y, z");
 
+	t(x, z);
 	x.emit('foo');
-	a(count, 3, "Post pipe, again x, x");
-	a(count2, 3, "Post pipe, again x, y");
+	a(count, 3, "Post pipe z, x");
+	a(count2, 3, "Post pipe z, y");
+	a(count3, 1, "Post pipe z, z");
 };
