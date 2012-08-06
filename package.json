@@ -1,6 +1,6 @@
 {
   "name": "event-emitter",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Basic event emitter for Node.js and browser",
   "keywords": [
     "event",
