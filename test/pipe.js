@@ -3,7 +3,7 @@
 var ee = require('../lib/core');
 
 module.exports = function (t, a) {
-	var x = {}, y = {}, z = {}, count, count2, count3;
+	var x = {}, y = {}, z = {}, count, count2, count3, pipe;
 
 	ee(x);
 	ee(y);
@@ -27,7 +27,7 @@ module.exports = function (t, a) {
 	a(count2, 0, "Pre pipe, y");
 	a(count3, 0, "Pre pipe, z");
 
-	t(x, y);
+	pipe = t(x, y);
 	x.emit('foo');
 	a(count, 2, "Post pipe, x");
 	a(count2, 1, "Post pipe, y");
@@ -43,4 +43,10 @@ module.exports = function (t, a) {
 	a(count, 3, "Post pipe z, x");
 	a(count2, 3, "Post pipe z, y");
 	a(count3, 1, "Post pipe z, z");
+
+	pipe.close();
+	x.emit('foo');
+	a(count, 4, "Close pipe y, x");
+	a(count2, 3, "Close pipe y, y");
+	a(count3, 2, "Close pipe y, z");
 };
