@@ -1,7 +1,7 @@
 {
   "name": "event-emitter",
   "version": "0.2.0",
-  "description": "Basic event emitter for Node.js and browser",
+  "description": "Cross-environment event emitter",
   "keywords": [
     "event",
     "events",
