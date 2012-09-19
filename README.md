@@ -1,38 +1,75 @@
-# Event emitter
-
-Basic event emitter for Node.js and Browsers
+# EventEmitter – Cross-environment event emitter solution for JavaScript
 
 ## Installation
+### NPM
 
-Node & npm:
+In your project path:
 
 	$ npm install event-emitter
 
+### Browser
+
+Browser bundle can be easily created with help of [modules-webmake](https://github.com/medikoo/modules-webmake).  Mind that it relies on some EcmaScript5 features, so for older browsers you need as well [es5-shim](https://github.com/kriskowal/es5-shim).
+
 ## Usage
 
-	var ee = require('event-emitter');
+```javascript
+var ee = require('event-emitter');
 
-	var MyCostructor = function () {};
-	ee(MyConstructor.prototype);
+var emitter = ee({}), listener;
 
-	var myObj = new MyConstructor();
+emitter.on('test', listener = function (args) {
+  // …emitter logic
+});
 
-	// Register listener:
-	var listener;
-	myObj.on('name', listener = function (args) {
-		 // ... whatever
-	});
+emitter.once('test', function (args) {
+  // …invoked only once(!)
+});
 
-	// Register listener that would be removed after first emit:
-	myObj.once('name', function (args) {
-		// ... whatever
-	});
+emitter.emit('test', arg1, arg2/*…args*/); // Two above listeners invoked
+emitter.emit('test', arg1, arg2/*…args*/); // Only first listener invoked
 
-	// Remove registered listener
-	myObj.off('name', listener);
+emitter.off('test', listener);              // Removed first listener
+emitter.emit('test', arg1, arg2/*…args*/); // No listeners invoked
+```
 
-	// Emit event
-	myObj.emit('name', arg1/*, arg2, arg3*/);
+## Additional functionalities (provided as separate modules)
+
+### allOff
+
+Remove all listeners
+
+```javascript
+var eeAllOff = require('event-emitter/lib/all-off');
+eeAllOff(emitter); // Removed all registered listeners on emitter
+```
+
+### pipe
+
+Pipe events from one emitter to other
+
+```javascript
+var eePipe  =require('event-emitter/lib/pipe');
+
+var emitter1 = ee(), listener1;
+var emitter2 = ee(), listener2;
+
+emitter1.on('test', listener1 = function () { });
+emitter2.on('test', listener2 = function () { });
+
+emitter1.emit('test'); // Invoked listener1
+emitter2.emit('test'); // Invoked listener2
+
+var pipe = eePipe(emitter1, emitter2);
+
+emitter1.emit('test'); // Invoked listener1 and listener2
+emitter2.emit('test'); // Invoked just listener2
+
+pipe.close();
+
+emitter1.emit('test'); // Invoked listener1
+emitter2.emit('test'); // Invoked listener2
+```
 
 ## Tests [![Build Status](https://secure.travis-ci.org/medikoo/event-emitter.png?branch=master)](https://secure.travis-ci.org/medikoo/event-emitter)
 
