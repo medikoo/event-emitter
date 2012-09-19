@@ -46,9 +46,7 @@ module.exports = function (t, a) {
 	a(count, 2, test + "Not emitter after off");
 
 	count = 0;
-	x.once('foo', listener1 = function (x, y, z) {
-		++count;
-	});
+	x.once('foo', listener1 = function () { ++count; });
 
 	x.off('foo', listener1);
 	x.emit('foo');
@@ -56,9 +54,7 @@ module.exports = function (t, a) {
 
 	count = 0;
 	x.on('foo', listener2 = function () {});
-	x.once('foo', listener1 = function (x, y, z) {
-		++count;
-	});
+	x.once('foo', listener1 = function () { ++count; });
 
 	x.off('foo', listener1);
 	x.emit('foo');

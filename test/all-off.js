@@ -8,16 +8,16 @@ module.exports = function (t, a) {
 	x = ee();
 	count = 0;
 	count2 = 0;
-	x.on('foo',function () {
+	x.on('foo', function () {
 		++count;
 	});
-	x.on('foo',function () {
+	x.on('foo', function () {
 		++count;
 	});
-	x.on('bar',function () {
+	x.on('bar', function () {
 		++count2;
 	});
-	x.on('bar',function () {
+	x.on('bar', function () {
 		++count2;
 	});
 	t(x, 'foo');
@@ -28,16 +28,16 @@ module.exports = function (t, a) {
 
 	count = 0;
 	count2 = 0;
-	x.on('foo',function () {
+	x.on('foo', function () {
 		++count;
 	});
-	x.on('foo',function () {
+	x.on('foo', function () {
 		++count;
 	});
-	x.on('bar',function () {
+	x.on('bar', function () {
 		++count2;
 	});
-	x.on('bar',function () {
+	x.on('bar', function () {
 		++count2;
 	});
 	t(x);
@@ -45,4 +45,4 @@ module.exports = function (t, a) {
 	x.emit('bar');
 	a(count, 0, "All off: type");
 	a(count2, 0, "All off: other type");
-}
+};
