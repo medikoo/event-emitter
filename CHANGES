@@ -1,3 +1,11 @@
+v0.2.0  --  2012.09.19
+* Trashed poor implementation of v0.1 and came up with something solid
+
+Changes:
+* Improved performance
+* Fixed bugs event-emitter is now cross-prototype safe and not affected by unexpected methods attached to Object.prototype
+* Removed support for optional "emitter" argument in `emit` method, it was cumbersome to use, and should be solved just with event objects
+
 v0.1.5  --  2012.08.06
 * (maintanance) Do not use descriptors for internal objects, it exposes V8 bugs
   (only Node v0.6 branch)
