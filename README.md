@@ -35,7 +35,7 @@ emitter.emit('test', arg1, arg2/*…args*/); // No listeners invoked
 
 ## Additional functionalities (provided as separate modules)
 
-### allOff
+### allOff(obj)
 
 Remove all listeners
 
@@ -44,7 +44,7 @@ var eeAllOff = require('event-emitter/lib/all-off');
 eeAllOff(emitter); // Removed all registered listeners on emitter
 ```
 
-### pipe
+### pipe(emitter1, emitter2)
 
 Pipe events from one emitter to other
 
