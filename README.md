@@ -49,7 +49,7 @@ eeAllOff(emitter); // Removed all registered listeners on emitter
 Pipe events from one emitter to other
 
 ```javascript
-var eePipe  =require('event-emitter/lib/pipe');
+var eePipe = require('event-emitter/lib/pipe');
 
 var emitter1 = ee(), listener1;
 var emitter2 = ee(), listener2;
@@ -69,6 +69,26 @@ pipe.close();
 
 emitter1.emit('test'); // Invoked listener1
 emitter2.emit('test'); // Invoked listener2
+```
+
+### hasListeners(obj[, type])
+
+Whether given object have registered listeners
+
+```javascript
+var emitter = ee();
+var hasListeners = require('event-emitter/lib/has-listeners');
+var listner = function () {};
+
+hasListeners(emitter); // false
+
+emitter.on('foo', listener);
+hasListeners(emitter); // true
+hasListeners(emitter, 'foo'); // true
+hasListeners(emitter, 'bar'); // false
+
+emitter.off('foo', listener);
+hasListeners(emitter, 'foo'); // false
 ```
 
 ## Tests [![Build Status](https://secure.travis-ci.org/medikoo/event-emitter.png?branch=master)](https://secure.travis-ci.org/medikoo/event-emitter)
