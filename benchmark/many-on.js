@@ -3,10 +3,16 @@
 // Benchmark comparing performance of event emit for many listeners
 // To run it, do following in memoizee package path:
 //
-// $ npm install bench eventemitter2 signals
-// $ node benchmark/single-on.js
+// $ npm install eventemitter2 signals
+// $ node benchmark/many-on.js
 
-var ee, native, ee2, signals;
+var forEach    = require('es5-ext/lib/Object/for-each')
+  , pad        = require('es5-ext/lib/String/prototype/pad')
+
+  , now = Date.now
+
+  , time, total, count = 1000000, i, data = {}
+  , ee, native, ee2, signals, a = {}, b = {};
 
 ee = (function () {
 	var ee = require('../lib/core')();
@@ -40,21 +46,38 @@ signals = (function () {
 	return ee;
 }());
 
-var a = {}, b = {};
+console.log("Emit for 3 listeners", "x" + count + ":\n");
 
-exports.compare = {
-	"event-emitter (this implementation)": function () {
-		ee.emit('test', a, b);
-	},
-	"EventEmitter (Node's native)": function () {
-		native.emit('test', a, b);
-	},
-	"EventEmitter2": function () {
-		ee2.emit('test', a, b);
-	},
-	"Signals": function () {
-		signals.test.dispatch(a, b);
-	}
-};
+i = count;
+time = now();
+while (i--) {
+	ee.emit('test', a, b);
+}
+data["event-emitter (this implementation)"] = now() - time;
 
-require('bench').runMain();
+i = count;
+time = now();
+while (i--) {
+	native.emit('test', a, b);
+}
+data["EventEmitter (Node.js native)"] = now() - time;
+
+i = count;
+time = now();
+while (i--) {
+	ee2.emit('test', a, b);
+}
+data["EventEmitter2"] = now() - time;
+
+i = count;
+time = now();
+while (i--) {
+	signals.test.dispatch(a, b);
+}
+data["Signals"] = now() - time;
+
+forEach(data, function (value, name, obj, index) {
+	console.log(index + 1 + ":",  pad.call(value, " ", 5), name);
+}, null, function (a, b) {
+	return this[a] - this[b];
+});
