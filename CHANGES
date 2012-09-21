@@ -1,3 +1,8 @@
+v0.2.1  --  2012.09.21
+* hasListeners module
+* Simplified internal id (improves performance a little), now it starts with underscore (hint it's private). Abstracted it to external module to have it one place
+* Documentation cleanup
+
 v0.2.0  --  2012.09.19
 * Trashed poor implementation of v0.1 and came up with something solid
 
