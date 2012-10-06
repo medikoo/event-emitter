@@ -1,16 +1,5 @@
 # EventEmitter – Cross-environment event emitter solution for JavaScript
 
-## Installation
-### NPM
-
-In your project path:
-
-	$ npm install event-emitter
-
-### Browser
-
-Browser bundle can be easily created with help of [modules-webmake](https://github.com/medikoo/modules-webmake).  Mind that it relies on some EcmaScript5 features, so for older browsers you need as well [es5-shim](https://github.com/kriskowal/es5-shim).
-
 ## Usage
 
 ```javascript
@@ -33,7 +22,35 @@ emitter.off('test', listener);              // Removed first listener
 emitter.emit('test', arg1, arg2/*…args*/); // No listeners invoked
 ```
 
-## Additional functionalities (provided as separate modules)
+## Installation
+### NPM
+
+In your project path:
+
+	$ npm install event-emitter
+
+### Browser
+
+Browser bundle can be easily created with help of [modules-webmake](https://github.com/medikoo/modules-webmake). Assuming that you have latest [Node.js](http://nodejs.org/) and [Git](http://git-scm.com/) installed, following will work in command shell of any system (Linux/MacOS/Windows):
+
+```
+$ npm install -g webmake
+$ git clone git://github.com/medikoo/event-emitter.git
+$ cd event-emitter
+$ npm install
+$ cd ..
+$ webmake --name=eventEmitter event-emitter/lib/index.js event-emitter.js
+```
+
+If you work with AMD modules, add _amd_ option, so generated bundle is one:
+
+```
+$ webmake --name=eventEmitter --amd event-emitter/lib/index.js event-emitter.js
+```
+
+_Mind that eventEmitter relies on some EcmaScript5 features, so for older browsers you need to load as well [es5-shim](https://github.com/kriskowal/es5-shim)_
+
+## Functionalities provided as separate modules
 
 ### allOff(obj)
 
@@ -78,7 +95,7 @@ Whether given object have registered listeners
 ```javascript
 var emitter = ee();
 var hasListeners = require('event-emitter/lib/has-listeners');
-var listner = function () {};
+var listener = function () {};
 
 hasListeners(emitter); // false
 
