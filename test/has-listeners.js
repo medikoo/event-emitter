@@ -38,5 +38,5 @@ module.exports = function (t) {
 			a(t(x, 'test'), false, "Emitter: empty but touched by once");
 			a(t(x, 'foo'), false, "Emitter: empty but touched by once, other event");
 		}
-	}
+	};
 };

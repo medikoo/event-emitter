@@ -11,7 +11,7 @@ var forEach    = require('es5-ext/lib/Object/for-each')
 
   , now = Date.now
 
-  , time, total, count = 1000000, i, data = {}
+  , time, count = 1000000, i, data = {}
   , ee, native, ee2, signals, a = {}, b = {};
 
 ee = (function () {
@@ -67,14 +67,14 @@ time = now();
 while (i--) {
 	ee2.emit('test', a, b);
 }
-data["EventEmitter2"] = now() - time;
+data.EventEmitter2 = now() - time;
 
 i = count;
 time = now();
 while (i--) {
 	signals.test.dispatch(a, b);
 }
-data["Signals"] = now() - time;
+data.Signals = now() - time;
 
 forEach(data, function (value, name, obj, index) {
 	console.log(index + 1 + ":",  pad.call(value, " ", 5), name);
