@@ -1,6 +1,6 @@
 {
   "name": "event-emitter",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Cross-environment event emitter",
   "keywords": [
     "event",
@@ -21,13 +21,13 @@
     "url": "https://github.com/medikoo/event-emitter/issues"
   },
   "dependencies": {
-    "es5-ext": "0.9.x"
+    "es5-ext": "~0.9.2"
   },
   "scripts": {
     "test": "node ./node_modules/tad/bin/tad lib"
   },
   "devDependencies": {
-    "tad": "0.1.x"
+    "tad": "~0.1.16"
   },
   "licence": "MIT",
   "engines": {
