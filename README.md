@@ -61,15 +61,16 @@ var eeAllOff = require('event-emitter/lib/all-off');
 eeAllOff(emitter); // Removed all registered listeners on emitter
 ```
 
-### pipe(emitter1, emitter2)
+### unify(emitter1, emitter2)
 
-Pipe events from one emitter to other
+Unify listeners database of two emitter.
+Events emitted on either emitter will call listeners attached to emitter object
 
 ```javascript
-var eePipe = require('event-emitter/lib/pipe');
+var eeUnify = require('event-emitter/lib/unify');
 
-var emitter1 = ee(), listener1;
-var emitter2 = ee(), listener2;
+var emitter1 = ee(), listener1, listener3;
+var emitter2 = ee(), listener2, listener4;
 
 emitter1.on('test', listener1 = function () { });
 emitter2.on('test', listener2 = function () { });
@@ -77,15 +78,16 @@ emitter2.on('test', listener2 = function () { });
 emitter1.emit('test'); // Invoked listener1
 emitter2.emit('test'); // Invoked listener2
 
-var pipe = eePipe(emitter1, emitter2);
+var unify = eeUnify(emitter1, emitter2);
 
 emitter1.emit('test'); // Invoked listener1 and listener2
-emitter2.emit('test'); // Invoked just listener2
+emitter2.emit('test'); // Invoked listener1 and listener2
 
-pipe.close();
+emitter1.on('test', listener3 = function () { });
+emitter2.on('test', listener4 = function () { });
 
-emitter1.emit('test'); // Invoked listener1
-emitter2.emit('test'); // Invoked listener2
+emitter1.emit('test'); // Invoked listener1, listener2, listener3 and listener4
+emitter2.emit('test'); // Invoked listener1, listener2, listener3 and listener4
 ```
 
 ### hasListeners(obj[, type])
