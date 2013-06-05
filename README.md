@@ -63,8 +63,8 @@ eeAllOff(emitter); // Removed all registered listeners on emitter
 
 ### unify(emitter1, emitter2)
 
-Unify listeners database of two emitter.
-Events emitted on either emitter will call listeners attached to emitter object
+Unify events handling for two emitters
+Events emitted on either emitter will call listeners attached to either emitter object
 
 ```javascript
 var eeUnify = require('event-emitter/lib/unify');
