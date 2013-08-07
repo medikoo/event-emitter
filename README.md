@@ -1,6 +1,7 @@
-# EventEmitter – Cross-environment event emitter solution for JavaScript
+# EventEmitter
+## Cross-environment event emitter solution for JavaScript
 
-## Usage
+### Usage
 
 ```javascript
 var ee = require('event-emitter');
@@ -22,14 +23,14 @@ emitter.off('test', listener);              // Removed first listener
 emitter.emit('test', arg1, arg2/*…args*/); // No listeners invoked
 ```
 
-## Installation
-### NPM
+### Installation
+#### NPM
 
 In your project path:
 
 	$ npm install event-emitter
 
-### Browser
+##### Browser
 
 Browser bundle can be easily created with help of [modules-webmake](https://github.com/medikoo/modules-webmake). Assuming that you have latest [Node.js](http://nodejs.org/) and [Git](http://git-scm.com/) installed, following will work in command shell of any system (Linux/MacOS/Windows):
 
@@ -50,9 +51,9 @@ $ webmake --name=eventEmitter --amd event-emitter/lib/index.js event-emitter.js
 
 _Mind that eventEmitter relies on some EcmaScript5 features, so for older browsers you need to load as well [es5-shim](https://github.com/kriskowal/es5-shim)_
 
-## Functionalities provided as separate modules
+### Functionalities provided as separate modules
 
-### allOff(obj)
+#### allOff(obj)
 
 Remove all listeners
 
@@ -61,7 +62,7 @@ var eeAllOff = require('event-emitter/lib/all-off');
 eeAllOff(emitter); // Removed all registered listeners on emitter
 ```
 
-### unify(emitter1, emitter2)
+#### unify(emitter1, emitter2)
 
 Unify events handling for two emitters
 Events emitted on either emitter will call listeners attached to either emitter object
@@ -90,7 +91,7 @@ emitter1.emit('test'); // Invoked listener1, listener2, listener3 and listener4
 emitter2.emit('test'); // Invoked listener1, listener2, listener3 and listener4
 ```
 
-### hasListeners(obj[, type])
+#### hasListeners(obj[, type])
 
 Whether given object have registered listeners
 
@@ -110,6 +111,6 @@ emitter.off('foo', listener);
 hasListeners(emitter, 'foo'); // false
 ```
 
-## Tests [![Build Status](https://secure.travis-ci.org/medikoo/event-emitter.png?branch=master)](https://secure.travis-ci.org/medikoo/event-emitter)
+### Tests [![Build Status](https://secure.travis-ci.org/medikoo/event-emitter.png?branch=master)](https://secure.travis-ci.org/medikoo/event-emitter)
 
 	$ npm test
