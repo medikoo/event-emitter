@@ -6,8 +6,8 @@
 // $ npm install eventemitter2 signals
 // $ node benchmark/single-on.js
 
-var forEach    = require('es5-ext/lib/Object/for-each')
-  , pad        = require('es5-ext/lib/String/prototype/pad')
+var forEach    = require('es5-ext/object/for-each')
+  , pad        = require('es5-ext/string/#/pad')
 
   , now = Date.now
 
