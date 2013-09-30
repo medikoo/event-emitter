@@ -21,7 +21,8 @@
     "url": "https://github.com/medikoo/event-emitter/issues"
   },
   "dependencies": {
-    "es5-ext": "git://github.com/medikoo/es5-ext.git"
+    "es5-ext": "git://github.com/medikoo/es5-ext.git",
+    "d": "git://github.com/medikoo/d.git"
   },
   "scripts": {
     "test": "node ./node_modules/tad/bin/tad lib"
