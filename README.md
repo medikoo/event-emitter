@@ -43,10 +43,10 @@ $ cd ..
 $ webmake --name=eventEmitter event-emitter/lib/index.js event-emitter.js
 ```
 
-If you work with AMD modules, add _amd_ option, so generated bundle is one:
+If you work with AMD modules, use _amd_ option, so generated bundle is one:
 
 ```
-$ webmake --name=eventEmitter --amd event-emitter/lib/index.js event-emitter.js
+$ webmake --amd event-emitter/lib/index.js event-emitter.js
 ```
 
 _Mind that eventEmitter relies on some EcmaScript5 features, so for older browsers you need to load as well [es5-shim](https://github.com/kriskowal/es5-shim)_
