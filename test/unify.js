@@ -119,6 +119,6 @@ module.exports = function (t) {
 			a(count, 4, "Post unify z, x");
 			a(count2, 6, "Post unify z, y");
 			a(count3, 1, "Post unify z, z");
-		},
+		}
 	};
 };
