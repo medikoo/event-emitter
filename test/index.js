@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (t, a) {
-	var x = {}, y,  count, count2;
+	var x = {}, count;
 
 	// Basic check
 	count = 0;
@@ -12,22 +12,4 @@ module.exports = function (t, a) {
 	x.emit('foo');
 
 	a(count, 1, "Emitted");
-
-	t.allOff(x);
-	x.emit('foo');
-	a(count, 1, "All Off");
-
-	y = t();
-	count = 0;
-	count2 = 0;
-	x.on('foo', function () {
-		++count;
-	});
-	y.on('foo', function () {
-		++count2;
-	});
-	t.pipe(x, y);
-	x.emit('foo');
-	a(count, 1, "Pipe: x emitted");
-	a(count2, 1, "Pipe: y emitted");
 };
