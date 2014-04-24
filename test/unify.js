@@ -1,7 +1,6 @@
 'use strict';
 
-var ee = require('../lib/core')
-  , id = require('../lib/_id');
+var ee = require('../lib/core');
 
 module.exports = function (t) {
 
@@ -26,7 +25,7 @@ module.exports = function (t) {
 			a(count3, 0, "Pre unify, z");
 
 			t(x, y);
-			a(x[id], y[id], "Post unify y");
+			a(x.__ee__, y.__ee__, "Post unify y");
 			x.emit('foo');
 			a(count, 2, "Post unify, x");
 			a(count2, 1, "Post unify, y");
@@ -38,7 +37,7 @@ module.exports = function (t) {
 			a(count3, 0, "Post unify, on y, z");
 
 			t(x, z);
-			a(x[id], x[id], "Post unify z");
+			a(x.__ee__, x.__ee__, "Post unify z");
 			x.emit('foo');
 			a(count, 4, "Post unify z, x");
 			a(count2, 3, "Post unify z, y");
@@ -61,7 +60,7 @@ module.exports = function (t) {
 			a(count3, 0, "Pre unify, z");
 
 			t(x, y);
-			a(x[id], y[id], "Post unify y");
+			a(x.__ee__, y.__ee__, "Post unify y");
 			x.on('foo', function () { ++count; });
 			x.emit('foo');
 			a(count, 1, "Post unify, x");
@@ -74,7 +73,7 @@ module.exports = function (t) {
 			a(count3, 0, "Post unify, on y, z");
 
 			t(x, z);
-			a(x[id], z[id], "Post unify z");
+			a(x.__ee__, z.__ee__, "Post unify z");
 			z.on('foo', function () { ++count3; });
 			x.emit('foo');
 			a(count, 3, "Post unify z, x");
@@ -102,7 +101,7 @@ module.exports = function (t) {
 			a(count3, 0, "Pre unify, z");
 
 			t(x, y);
-			a(x[id], y[id], "Post unify y");
+			a(x.__ee__, y.__ee__, "Post unify y");
 			x.emit('foo');
 			a(count, 2, "Post unify, x");
 			a(count2, 2, "Post unify, y");
@@ -114,7 +113,7 @@ module.exports = function (t) {
 			a(count3, 0, "Post unify, on y, z");
 
 			t(x, z);
-			a(x[id], x[id], "Post unify z");
+			a(x.__ee__, x.__ee__, "Post unify z");
 			x.emit('foo');
 			a(count, 4, "Post unify z, x");
 			a(count2, 6, "Post unify z, y");
