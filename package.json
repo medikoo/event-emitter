@@ -1,36 +1,30 @@
 {
   "name": "event-emitter",
-  "version": "0.2.2",
-  "description": "Cross-environment event emitter",
+  "version": "0.3.0",
+  "description": "Environment agnostic event emitter",
+  "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
   "keywords": [
     "event",
     "events",
     "trigger",
     "observer",
     "listener",
-    "emitter"
+    "emitter",
+    "pubsub"
   ],
-  "author": "Mariusz Nowak <medikoo+event-emitter@medikoo.com> (http://www.medikoo.com/)",
   "repository": {
     "type": "git",
     "url": "git://github.com/medikoo/event-emitter.git"
   },
-  "bugs": {
-    "email": "medikoo+event-emitter@medikoo.com",
-    "url": "https://github.com/medikoo/event-emitter/issues"
-  },
   "dependencies": {
-    "es5-ext": "git://github.com/medikoo/es5-ext.git",
-    "d": "git://github.com/medikoo/d.git"
+    "es5-ext": "~0.10.2",
+    "d": "~0.1.1"
+  },
+  "devDependencies": {
+    "tad": "~0.1.21"
   },
   "scripts": {
     "test": "node ./node_modules/tad/bin/tad"
   },
-  "devDependencies": {
-    "tad": "~0.1.16"
-  },
-  "licence": "MIT",
-  "engines": {
-    "node": ">=0.4"
-  }
+  "licence": "MIT"
 }

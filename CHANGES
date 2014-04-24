@@ -1,3 +1,12 @@
+v0.3.0  --  2014.04.24
+* Move out from lib folder
+* Do not expose all utilities on main module
+* Support objects which do not inherit from Object.prototype
+* Improve arguments validation
+* Improve internals
+* Remove Makefile
+* Improve documentation
+
 v0.2.2  --  2013.06.05
 * `unify` functionality
 
