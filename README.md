@@ -1,5 +1,11 @@
-# EventEmitter
-## Cross-environment event emitter solution for JavaScript
+# event-emitter
+## Environment agnostic event emitter
+
+### Installation
+
+	$ npm install event-emitter
+	
+To port it to Browser or any other (non CJS) environment, use your favorite CJS bundler. No favorite yet? Try: [Browserify](http://browserify.org/), [Webmake](https://github.com/medikoo/modules-webmake) or [Webpack](http://webpack.github.io/)
 
 ### Usage
 
@@ -22,53 +28,45 @@ emitter.emit('test', arg1, arg2/*…args*/); // Only first listener invoked
 emitter.off('test', listener);              // Removed first listener
 emitter.emit('test', arg1, arg2/*…args*/); // No listeners invoked
 ```
+### Additional utilities
 
-### Installation
-#### NPM
+#### allOff(obj) _(event-emitter/all-off)_
 
-In your project path:
+Removes all listeners from given event emitter object
 
-	$ npm install event-emitter
+#### hasListeners(obj[, name]) _(event-emitter/has-listeners)_
 
-##### Browser
-
-Browser bundle can be easily created with help of [modules-webmake](https://github.com/medikoo/modules-webmake). Assuming that you have latest [Node.js](http://nodejs.org/) and [Git](http://git-scm.com/) installed, following will work in command shell of any system (Linux/MacOS/Windows):
-
-```
-$ npm install -g webmake
-$ git clone git://github.com/medikoo/event-emitter.git
-$ cd event-emitter
-$ npm install
-$ cd ..
-$ webmake --name=eventEmitter event-emitter/lib/index.js event-emitter.js
-```
-
-If you work with AMD modules, use _amd_ option, so generated bundle is one:
-
-```
-$ webmake --amd event-emitter/lib/index.js event-emitter.js
-```
-
-_Mind that eventEmitter relies on some EcmaScript5 features, so for older browsers you need to load as well [es5-shim](https://github.com/kriskowal/es5-shim)_
-
-### Functionalities provided as separate modules
-
-#### allOff(obj)
-
-Remove all listeners
+Whether there are any listeners attached to the object.
+If `name` is provided, it checks whether are there any listeners attached for specific event
 
 ```javascript
-var eeAllOff = require('event-emitter/lib/all-off');
-eeAllOff(emitter); // Removed all registered listeners on emitter
+var emitter = ee();
+var hasListeners = require('event-emitter/has-listeners');
+var listener = function () {};
+
+hasListeners(emitter); // false
+
+emitter.on('foo', listener);
+hasListeners(emitter); // true
+hasListeners(emitter, 'foo'); // true
+hasListeners(emitter, 'bar'); // false
+
+emitter.off('foo', listener);
+hasListeners(emitter, 'foo'); // false
 ```
 
-#### unify(emitter1, emitter2)
+#### pipe(source, target) _(event-emitter/pipe)_
 
-Unify events handling for two emitters
-Events emitted on either emitter will call listeners attached to either emitter object
+Pipes all events from _source_ emitter onto _target_ emitter (all events from _source_ emitter will be emitted also on _target_ emitter, but not other way).  
+Returns _pipe_ object which exposes `pipe.close` function. Invoke it to close created _pipe_.
+
+#### unify(emitter1, emitter2) _(event-emitter/unify)_
+
+Unifies event handling for two objects. Events emitted on _emitter1_ would be also emitter on _emitter2_, and other way back, events emitter on _emitter2_ would be emitter on _emitter1_ (both objects share same listeners collection).   
+Non reversible.
 
 ```javascript
-var eeUnify = require('event-emitter/lib/unify');
+var eeUnify = require('event-emitter/unify');
 
 var emitter1 = ee(), listener1, listener3;
 var emitter2 = ee(), listener2, listener4;
@@ -91,25 +89,6 @@ emitter1.emit('test'); // Invoked listener1, listener2, listener3 and listener4
 emitter2.emit('test'); // Invoked listener1, listener2, listener3 and listener4
 ```
 
-#### hasListeners(obj[, type])
-
-Whether given object have registered listeners
-
-```javascript
-var emitter = ee();
-var hasListeners = require('event-emitter/lib/has-listeners');
-var listener = function () {};
-
-hasListeners(emitter); // false
-
-emitter.on('foo', listener);
-hasListeners(emitter); // true
-hasListeners(emitter, 'foo'); // true
-hasListeners(emitter, 'bar'); // false
-
-emitter.off('foo', listener);
-hasListeners(emitter, 'foo'); // false
-```
 
 ### Tests [![Build Status](https://secure.travis-ci.org/medikoo/event-emitter.png?branch=master)](https://secure.travis-ci.org/medikoo/event-emitter)
 
