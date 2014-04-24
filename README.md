@@ -58,7 +58,7 @@ hasListeners(emitter, 'foo'); // false
 #### pipe(source, target) _(event-emitter/pipe)_
 
 Pipes all events from _source_ emitter onto _target_ emitter (all events from _source_ emitter will be emitted also on _target_ emitter, but not other way).  
-Returns _pipe_ object which exposes `pipe.close` function. Invoke it to close created _pipe_.
+Returns _pipe_ object which exposes `pipe.close` function. Invoke it to close configured _pipe_.
 
 #### unify(emitter1, emitter2) _(event-emitter/unify)_
 
