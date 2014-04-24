@@ -1,6 +1,6 @@
 'use strict';
 
-var ee = require('../lib/core');
+var ee = require('../');
 
 module.exports = function (t) {
 	var x, y;

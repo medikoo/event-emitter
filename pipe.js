@@ -5,7 +5,7 @@ var defineProperty = Object.defineProperty
   , remove         = require('es5-ext/array/#/remove')
   , d              = require('d')
   , value          = require('es5-ext/object/valid-object')
-  , emit           = require('./core').methods.emit
+  , emit           = require('./').methods.emit
 
   , hasOwnProperty = Object.prototype.hasOwnProperty
   , getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
