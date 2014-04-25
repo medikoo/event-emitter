@@ -25,7 +25,7 @@ module.exports = function (e1, e2) {
 		(pipes = e1.__eePipes__).push(e2);
 		return pipe;
 	}
-	defineProperty(e1, '__eePipes__', d(pipes = [e2]));
+	defineProperty(e1, '__eePipes__', d('c', pipes = [e2]));
 	desc = getOwnPropertyDescriptor(e1, 'emit');
 	delete desc.get;
 	delete desc.set;
