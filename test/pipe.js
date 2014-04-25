@@ -6,6 +6,7 @@ module.exports = function (t, a) {
 	var x = {}, y = {}, z = {}, count, count2, count3, pipe;
 
 	ee(x);
+	x = Object.create(x);
 	ee(y);
 	ee(z);
 

@@ -27,8 +27,12 @@ module.exports = function (e1, e2) {
 	}
 	defineProperty(e1, '__eePipes__', d('c', pipes = [e2]));
 	desc = getOwnPropertyDescriptor(e1, 'emit');
-	delete desc.get;
-	delete desc.set;
+	if (!desc) {
+		desc = d('c', undefined);
+	} else {
+		delete desc.get;
+		delete desc.set;
+	}
 	desc.value = function () {
 		var i, emitter, data = aFrom(pipes);
 		emit.apply(this, arguments);
