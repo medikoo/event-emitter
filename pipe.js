@@ -1,12 +1,12 @@
 'use strict';
 
-var defineProperty = Object.defineProperty
-  , aFrom          = require('es5-ext/array/from')
+var aFrom          = require('es5-ext/array/from')
   , remove         = require('es5-ext/array/#/remove')
-  , d              = require('d')
   , value          = require('es5-ext/object/valid-object')
+  , d              = require('d')
   , emit           = require('./').methods.emit
 
+  , defineProperty = Object.defineProperty
   , hasOwnProperty = Object.prototype.hasOwnProperty
   , getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
 
