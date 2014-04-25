@@ -1,3 +1,7 @@
+v0.3.1  --  2014.04.25
+* Fix redefinition of emit method in `pipe`
+* Allow custom emit method name in `pipe`
+
 v0.3.0  --  2014.04.24
 * Move out from lib folder
 * Do not expose all utilities on main module
