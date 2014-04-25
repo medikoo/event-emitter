@@ -55,10 +55,11 @@ emitter.off('foo', listener);
 hasListeners(emitter, 'foo'); // false
 ```
 
-#### pipe(source, target) _(event-emitter/pipe)_
+#### pipe(source, target/*, emitMethodName*/) _(event-emitter/pipe)_
 
 Pipes all events from _source_ emitter onto _target_ emitter (all events from _source_ emitter will be emitted also on _target_ emitter, but not other way).  
-Returns _pipe_ object which exposes `pipe.close` function. Invoke it to close configured _pipe_.
+Returns _pipe_ object which exposes `pipe.close` function. Invoke it to close configured _pipe_.  
+It works internally by redefinition of `emit` method, if in your interface this method is referenced differenetly, provide its name (or symbol) with third argument.
 
 #### unify(emitter1, emitter2) _(event-emitter/unify)_
 

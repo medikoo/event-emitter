@@ -10,13 +10,12 @@ var aFrom          = require('es5-ext/array/from')
   , hasOwnProperty = Object.prototype.hasOwnProperty
   , getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
 
-module.exports = function (e1, e2) {
-	var pipes, pipe, desc;
+module.exports = function (e1, e2/*, name*/) {
+	var pipes, pipe, desc, name;
 
 	(value(e1) && value(e2));
-	if (typeof e1.emit !== 'function') {
-		throw new TypeError(e1 + ' is not emitter');
-	}
+	name = arguments[2];
+	if (name === undefined) name = 'emit';
 
 	pipe = {
 		close: function () { remove.call(pipes, e2); }
@@ -26,7 +25,7 @@ module.exports = function (e1, e2) {
 		return pipe;
 	}
 	defineProperty(e1, '__eePipes__', d('c', pipes = [e2]));
-	desc = getOwnPropertyDescriptor(e1, 'emit');
+	desc = getOwnPropertyDescriptor(e1, name);
 	if (!desc) {
 		desc = d('c', undefined);
 	} else {
@@ -38,6 +37,6 @@ module.exports = function (e1, e2) {
 		emit.apply(this, arguments);
 		for (i = 0; (emitter = data[i]); ++i) emit.apply(emitter, arguments);
 	};
-	defineProperty(e1, 'emit', desc);
+	defineProperty(e1, name, desc);
 	return pipe;
 };
