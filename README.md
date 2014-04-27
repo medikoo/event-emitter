@@ -90,7 +90,6 @@ emitter1.emit('test'); // Invoked listener1, listener2, listener3 and listener4
 emitter2.emit('test'); // Invoked listener1, listener2, listener3 and listener4
 ```
 
-
 ### Tests [![Build Status](https://travis-ci.org/medikoo/event-emitter.png)](https://travis-ci.org/medikoo/event-emitter)
 
 	$ npm test
