@@ -5,7 +5,7 @@ var ee = require('../');
 module.exports = function (t) {
 	var x, y;
 	return {
-		"Any": function (a) {
+		Any: function (a) {
 			a(t(true), false, "Primitive");
 			a(t({ events: [] }), false, "Other object");
 			a(t(x = ee()), false, "Emitter: empty");
@@ -19,7 +19,7 @@ module.exports = function (t) {
 			x.off('test', y);
 			a(t(x), false, "Emitter: empty but touched by once");
 		},
-		"Specific": function (a) {
+		Specific: function (a) {
 			a(t(true, 'test'), false, "Primitive");
 			a(t({ events: [] }, 'test'), false, "Other object");
 			a(t(x = ee(), 'test'), false, "Emitter: empty");

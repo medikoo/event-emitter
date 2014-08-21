@@ -80,7 +80,7 @@ module.exports = function (t) {
 			a(count2, 3, "Post unify z, y");
 			a(count3, 1, "Post unify z, z");
 		},
-		"Many": function (a) {
+		Many: function (a) {
 			var x = {}, y = {}, z = {}, count, count2, count3;
 
 			ee(x);
