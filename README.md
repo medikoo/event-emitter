@@ -36,8 +36,8 @@ Removes all listeners from given event emitter object
 
 #### hasListeners(obj[, name]) _(event-emitter/has-listeners)_
 
-Whether there are any listeners attached to the object.
-If `name` is provided, it checks whether are there any listeners attached for specific event
+Whether object has some listeners attached to the object.
+When `name` is provided, it checks listeners for specific event name
 
 ```javascript
 var emitter = ee();
@@ -59,11 +59,11 @@ hasListeners(emitter, 'foo'); // false
 
 Pipes all events from _source_ emitter onto _target_ emitter (all events from _source_ emitter will be emitted also on _target_ emitter, but not other way).  
 Returns _pipe_ object which exposes `pipe.close` function. Invoke it to close configured _pipe_.  
-It works internally by redefinition of `emit` method, if in your interface this method is referenced differenetly, provide its name (or symbol) with third argument.
+It works internally by redefinition of `emit` method, if in your interface this method is referenced differently, provide its name (or symbol) with third argument.
 
 #### unify(emitter1, emitter2) _(event-emitter/unify)_
 
-Unifies event handling for two objects. Events emitted on _emitter1_ would be also emitter on _emitter2_, and other way back, events emitter on _emitter2_ would be emitter on _emitter1_ (both objects share same listeners collection).   
+Unifies event handling for two objects. Events emitted on _emitter1_ would be also emitter on _emitter2_, and other way back.  
 Non reversible.
 
 ```javascript
