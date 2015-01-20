@@ -1,3 +1,8 @@
+v0.3.2  --  2015.01.20
+* Improve documentation
+* Configure lint scripts
+* Fix spelling of LICENSE
+
 v0.3.1  --  2014.04.25
 * Fix redefinition of emit method in `pipe`
 * Allow custom emit method name in `pipe`

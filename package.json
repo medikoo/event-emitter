@@ -1,6 +1,6 @@
 {
   "name": "event-emitter",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Environment agnostic event emitter",
   "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
   "keywords": [
@@ -17,12 +17,12 @@
     "url": "git://github.com/medikoo/event-emitter.git"
   },
   "dependencies": {
-    "es5-ext": "~0.10.4",
+    "es5-ext": "~0.10.5",
     "d": "~0.1.1"
   },
   "devDependencies": {
-    "tad": "0.2.x",
-    "xlint": "~0.2.1",
+    "tad": "0.2",
+    "xlint": "~0.2.2",
     "xlint-jslint-medikoo": "~0.1.2"
   },
   "scripts": {
