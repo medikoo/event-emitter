@@ -73,7 +73,14 @@ off = function (type, listener) {
 };
 
 emit = function (type) {
-	var i, l, listener, listeners, args;
+  function Event(target) {
+    this.target   = target;
+    this.stopped  = false;
+    this.result   = undefined;
+  }
+
+	var i, l, listener, listeners, args, evt;
+  evt = new Event(this);
 
 	if (!hasOwnProperty.call(this, '__ee__')) return;
 	listeners = this.__ee__[type];
@@ -86,18 +93,19 @@ emit = function (type) {
 
 		listeners = listeners.slice();
 		for (i = 0; (listener = listeners[i]); ++i) {
-			apply.call(listener, this, args);
+			apply.call(listener, evt, args);
+      if (evt.stopped) return evt.result;
 		}
 	} else {
 		switch (arguments.length) {
 		case 1:
-			call.call(listeners, this);
+			call.call(listeners, evt);
 			break;
 		case 2:
-			call.call(listeners, this, arguments[1]);
+			call.call(listeners, evt, arguments[1]);
 			break;
 		case 3:
-			call.call(listeners, this, arguments[1], arguments[2]);
+			call.call(listeners, evt, arguments[1], arguments[2]);
 			break;
 		default:
 			l = arguments.length;
@@ -105,9 +113,11 @@ emit = function (type) {
 			for (i = 1; i < l; ++i) {
 				args[i - 1] = arguments[i];
 			}
-			apply.call(listeners, this, args);
+			apply.call(listeners, evt, args);
+      break;
 		}
 	}
+  return evt.result;
 };
 
 methods = {
