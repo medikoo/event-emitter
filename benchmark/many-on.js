@@ -15,7 +15,7 @@ var forEach    = require('es5-ext/object/for-each')
   , ee, native, ee2, signals, a = {}, b = {};
 
 ee = (function () {
-	var ee = require('../lib/core')();
+	var ee = require('../')();
 	ee.on('test', function () { return arguments; });
 	ee.on('test', function () { return arguments; });
 	return ee.on('test', function () { return arguments; });
