@@ -1,6 +1,12 @@
 # event-emitter
 ## Environment agnostic event emitter
 
++ The Event Chain Supports 
+  + the event object as listener's "this" object. 
+  + return the result property of event object to emitter object. 
+  + prevent the rest of listener from be excuted if set the stopped property of event object to true 
+
+
 ### Installation
 
 	$ npm install event-emitter
