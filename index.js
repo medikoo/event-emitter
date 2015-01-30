@@ -9,7 +9,7 @@ var d        = require('d')
   , hasOwnProperty = Object.prototype.hasOwnProperty
   , descriptor = { configurable: true, enumerable: false, writable: true }
 
-  , on, once, off, emit, methods, descriptors, base;
+  , on, once, off, emit, methods, descriptors, base, Event;
 
 on = function (type, listener) {
 	var data;
@@ -72,19 +72,41 @@ off = function (type, listener) {
 	return this;
 };
 
-emit = function (type) {
+Event = (function() {
+  var eventCache = [];
   function Event(target) {
+    if (!(this instanceof Event)) {
+      var evt = eventCache.pop();
+      if (!evt)
+        evt = new Event(target);
+      else
+        evt.init(target);
+      return evt;
+    }
+    this.init(target);
+  }
+  Event.prototype.init  = function(target) {
     this.target   = target;
     this.stopped  = false;
     this.result   = undefined;
-  }
+  };
+  Event.setCache  = function(cache) {eventCache = cache;};
+  Event.prototype.end  = function() {eventCache.push(this);return this.result;};
+  Event.prototype.pop  = function() {eventCache.pop();};
+
+  return Event;
+
+})();
+
+emit = function (type) {
 
 	var i, l, listener, listeners, args, evt;
-  evt = new Event(this);
 
 	if (!hasOwnProperty.call(this, '__ee__')) return;
 	listeners = this.__ee__[type];
 	if (!listeners) return;
+
+  evt = Event(this);
 
 	if (typeof listeners === 'object') {
 		l = arguments.length;
@@ -94,7 +116,7 @@ emit = function (type) {
 		listeners = listeners.slice();
 		for (i = 0; (listener = listeners[i]); ++i) {
 			apply.call(listener, evt, args);
-      if (evt.stopped) return evt.result;
+      if (evt.stopped) return evt.end();
 		}
 	} else {
 		switch (arguments.length) {
@@ -117,10 +139,11 @@ emit = function (type) {
       break;
 		}
 	}
-  return evt.result;
+  return evt.end();
 };
 
 methods = {
+  setCache: Event.setCache,
 	on: on,
 	once: once,
 	off: off,
