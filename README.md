@@ -28,6 +28,22 @@ emitter.emit('test', arg1, arg2/*…args*/); // Only first listener invoked
 emitter.off('test', listener);              // Removed first listener
 emitter.emit('test', arg1, arg2/*…args*/); // No listeners invoked
 ```
+
+Or as a mix-in:
+
+```javascript
+var ee = require('event-emitter');
+
+function MyClass() {
+  ee(this);
+}
+
+var obj = new MyClass();
+obj.on('test', function (args) {
+  // ... 
+});
+```
+
 ### Additional utilities
 
 #### allOff(obj) _(event-emitter/all-off)_
