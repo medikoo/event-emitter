@@ -13,7 +13,7 @@ To port it to Browser or any other (non CJS) environment, use your favorite CJS 
 var ee = require('event-emitter');
 
 var MyClass = function () { /* .. */ };
-ee(MyClass.prototype); // All instances of MyClass will expose event-emitter itnterface
+ee(MyClass.prototype); // All instances of MyClass will expose event-emitter interface
 
 var emitter = new MyClass(), listener;
 
