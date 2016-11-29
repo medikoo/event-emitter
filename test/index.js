@@ -2,13 +2,14 @@
 
 module.exports = function (t, a) {
 	var x = t(), y, count, count2, count3, count4, test, listener1, listener2;
-
+  var defaultEvent = {stopped:false, result: undefined};
 	x.emit('none');
 
 	test = "Once: ";
 	count = 0;
 	x.once('foo', function (a1, a2, a3) {
-		a(this, x, test + "Context");
+    defaultEvent.target = x;
+		a.deep(this, defaultEvent, test + "Context");
 		a.deep([a1, a2, a3], ['foo', x, 15], test + "Arguments");
 		++count;
 	});
@@ -23,13 +24,15 @@ module.exports = function (t, a) {
 	test = "On & Once: ";
 	count = 0;
 	x.on('foo', listener1 = function (a1, a2, a3) {
-		a(this, x, test + "Context");
+    defaultEvent.target = x;
+		a.deep(this, defaultEvent, test + "Context");
 		a.deep([a1, a2, a3], ['foo', x, 15], test + "Arguments");
 		++count;
 	});
 	count2 = 0;
 	x.once('foo', listener2 = function (a1, a2, a3) {
-		a(this, x, test + "Context");
+    defaultEvent.target = x;
+		a.deep(this, defaultEvent, test + "Context");
 		a.deep([a1, a2, a3], ['foo', x, 15], test + "Arguments");
 		++count2;
 	});
@@ -104,4 +107,28 @@ module.exports = function (t, a) {
 	a(count2, 2, test + "y on count");
 	a(count3, 1, test + "x once count");
 	a(count4, 1, test + "y once count");
+
+	test = "Event: ";
+	count = 0;
+	count2 = 0;
+	x.on('efoo', function () {
+		++count;
+    this.result = 129;
+	});
+	x.on('efoo', function () {
+		++count;
+	});
+	x.on('ebar', function () {
+		++count2;
+    this.result = "hiFirst"
+    this.stopped = true;
+	});
+	x.on('ebar', function () {
+		++count2;
+    this.result = "hiSec"
+	});
+	a(x.emit('efoo'), 129, test + 'foo result');
+	a(x.emit('ebar'), "hiFirst", test + 'bar result');
+	a(count, 2, test + "foo type");
+	a(count2, 1, test + "bar type");
 };
