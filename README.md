@@ -23,9 +23,12 @@ emitter.on('test', listener = function (args) {
 
 emitter.once('test', function (args) {
   // …invoked only once(!)
+  //and can return result to emit.
+  this.result = 18;
 });
 
-emitter.emit('test', arg1, arg2/*…args*/); // Two above listeners invoked
+//return the result is 18.
+var result = emitter.emit('test', arg1, arg2/*…args*/); // Two above listeners invoked
 emitter.emit('test', arg1, arg2/*…args*/); // Only first listener invoked
 
 emitter.off('test', listener);              // Removed first listener

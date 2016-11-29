@@ -16,7 +16,7 @@ module.exports = function (t) {
 			count2 = 0;
 			count3 = 0;
 			x.on('foo', function () { ++count; });
-			y.on('foo', function () { ++count2; });
+			y.on('foo', function () { ++count2; this.result=16});
 			z.on('foo', function () { ++count3; });
 
 			x.emit('foo');
@@ -26,7 +26,7 @@ module.exports = function (t) {
 
 			t(x, y);
 			a(x.__ee__, y.__ee__, "Post unify y");
-			x.emit('foo');
+			a(x.emit('foo'), 16, "unify(x,y): event foo result");
 			a(count, 2, "Post unify, x");
 			a(count2, 1, "Post unify, y");
 			a(count3, 0, "Post unify, z");
