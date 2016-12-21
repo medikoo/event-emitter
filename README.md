@@ -18,11 +18,11 @@ ee(MyClass.prototype); // All instances of MyClass will expose event-emitter int
 var emitter = new MyClass(), listener;
 
 emitter.on('test', listener = function (args) {
-  // …emitter logic
+  // … react to 'test' event
 });
 
 emitter.once('test', function (args) {
-  // …invoked only once(!)
+  // … react to first 'test' event (invoked only once!)
 });
 
 emitter.emit('test', arg1, arg2/*…args*/); // Two above listeners invoked
