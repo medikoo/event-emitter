@@ -66,7 +66,7 @@ It works internally by redefinition of `emit` method, if in your interface this 
 
 #### unify(emitter1, emitter2) _(event-emitter/unify)_
 
-Unifies event handling for two objects. Events emitted on _emitter1_ would be also emitter on _emitter2_, and other way back.  
+Unifies event handling for two objects. Events emitted on _emitter1_ would be also emitted on _emitter2_, and other way back.  
 Non reversible.
 
 ```javascript
