@@ -1,6 +1,6 @@
 {
   "name": "event-emitter",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Environment agnostic event emitter",
   "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
   "keywords": [
