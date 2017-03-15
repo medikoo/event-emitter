@@ -17,11 +17,11 @@
     "url": "git://github.com/medikoo/event-emitter.git"
   },
   "dependencies": {
-    "es5-ext": "~0.10.7",
-    "d": "~0.1.1"
+    "es5-ext": "~0.10.14",
+    "d": "1"
   },
   "devDependencies": {
-    "tad": "~0.2.3",
+    "tad": "~0.2.7",
     "xlint": "~0.2.2",
     "xlint-jslint-medikoo": "~0.1.4"
   },
