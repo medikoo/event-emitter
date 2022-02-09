@@ -1,5 +1,5 @@
 {
-  "name": "event-emitter-js",
+  "name": "@ashish-hurix/event-emitter",
   "version": "0.3.6",
   "description": "Environment agnostic event emitter forked from mediko",
   "author": "Ashish Yadav <ashish.hurix@outlook.com>",
