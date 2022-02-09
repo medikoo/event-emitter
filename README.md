@@ -3,7 +3,7 @@
 
 ### Installation
 
-	$ npm install event-emitter
+	$ npm install event-emitter-js
 
 To port it to Browser or any other (non CJS) environment, use your favorite CJS bundler. No favorite yet? Try: [Browserify](http://browserify.org/), [Webmake](https://github.com/medikoo/modules-webmake) or [Webpack](http://webpack.github.io/)
 
@@ -30,6 +30,9 @@ emitter.emit('test', arg1, arg2/*…args*/); // Only first listener invoked
 
 emitter.off('test', listener);              // Removed first listener
 emitter.emit('test', arg1, arg2/*…args*/); // No listeners invoked
+
+emitter.off('test'); // Remove all listners by type
+emitter.off(); // Remove all listeners at once
 ```
 ### Additional utilities
 

@@ -1,8 +1,8 @@
 {
-  "name": "event-emitter",
-  "version": "0.3.5",
-  "description": "Environment agnostic event emitter",
-  "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
+  "name": "event-emitter-js",
+  "version": "0.3.6",
+  "description": "Environment agnostic event emitter forked from mediko",
+  "author": "Ashish Yadav <ashish.hurix@outlook.com>",
   "keywords": [
     "event",
     "events",
@@ -14,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/medikoo/event-emitter.git"
+    "url": "git://github.com/ashish-hurix/event-emitter.git"
   },
   "dependencies": {
     "d": "^1.0.1",

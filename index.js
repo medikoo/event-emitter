@@ -47,12 +47,23 @@ once = function (type, listener) {
 off = function (type, listener) {
 	var data, listeners, candidate, i;
 
-	callable(listener);
-
 	if (!hasOwnProperty.call(this, '__ee__')) return this;
 	data = this.__ee__;
+
+	if(typeof type === 'undefined'){
+		data = null;
+		return this;
+	}
+
 	if (!data[type]) return this;
 	listeners = data[type];
+
+	if(typeof type !== 'undefined' && typeof listener === 'undefined' && data[type]){
+		delete data[type];
+		return this;
+	}
+
+	callable(listener);
 
 	if (typeof listeners === 'object') {
 		for (i = 0; (candidate = listeners[i]); ++i) {
