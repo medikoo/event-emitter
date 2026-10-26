@@ -20,6 +20,20 @@ module.exports = function (t, a) {
 	x.emit('foo');
 	a(count, 1, test + "Emitted once");
 
+	y = t();
+	count = 0;
+	y.on('foo', function nested() {
+		y.off('foo', nested);
+		y.emit('foo', 'nested');
+	});
+	y.once('foo', function (value) {
+		a(this, y, "Reentrant once: Context");
+		a(value, 'nested', "Reentrant once: Arguments from first invocation");
+		++count;
+	});
+	y.emit('foo', 'outer');
+	a(count, 1, "Reentrant once: Invoked only once");
+
 	test = "On & Once: ";
 	count = 0;
 	x.on('foo', listener1 = function (a1, a2, a3) {
