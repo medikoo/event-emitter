@@ -4,11 +4,11 @@ var customError = require("es5-ext/error/custom")
   , ee          = require("../");
 
 module.exports = function (t, a) {
-	var x, error = customError("Some error", "ERROR_TEST"), emitted;
+	var emitter, error = customError("Some error", "ERROR_TEST"), emitted;
 
-	x = ee();
-	a.throws(function () { t.call(x, error); }, "ERROR_TEST");
-	x.on("error", function (err) { emitted = err; });
-	t.call(x, error);
+	emitter = ee();
+	a.throws(function () { t.call(emitter, error); }, "ERROR_TEST");
+	emitter.on("error", function (err) { emitted = err; });
+	t.call(emitter, error);
 	a(emitted, error);
 };

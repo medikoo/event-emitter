@@ -1,42 +1,43 @@
 "use strict";
 
-var ee = require("../");
+var noop = require("es5-ext/function/noop")
+  , ee   = require("../");
 
 module.exports = function (t) {
-	var x, y;
+	var emitter, listener;
 	return {
 		Any: function (a) {
 			a(t(true), false, "Primitive");
 			a(t({ events: [] }), false, "Other object");
-			a(t((x = ee())), false, "Emitter: empty");
+			a(t((emitter = ee())), false, "Emitter: empty");
 
-			x.on("test", (y = function () {}));
-			a(t(x), true, "Emitter: full");
-			x.off("test", y);
-			a(t(x), false, "Emitter: empty but touched");
-			x.once("test", (y = function () {}));
-			a(t(x), true, "Emitter: full: Once");
-			x.off("test", y);
-			a(t(x), false, "Emitter: empty but touched by once");
+			emitter.on("test", (listener = noop));
+			a(t(emitter), true, "Emitter: full");
+			emitter.off("test", listener);
+			a(t(emitter), false, "Emitter: empty but touched");
+			emitter.once("test", (listener = noop));
+			a(t(emitter), true, "Emitter: full: Once");
+			emitter.off("test", listener);
+			a(t(emitter), false, "Emitter: empty but touched by once");
 		},
 		Specific: function (a) {
 			a(t(true, "test"), false, "Primitive");
 			a(t({ events: [] }, "test"), false, "Other object");
-			a(t((x = ee()), "test"), false, "Emitter: empty");
+			a(t((emitter = ee()), "test"), false, "Emitter: empty");
 
-			x.on("test", (y = function () {}));
-			a(t(x, "test"), true, "Emitter: full");
-			a(t(x, "foo"), false, "Emitter: full, other event");
-			x.off("test", y);
-			a(t(x, "test"), false, "Emitter: empty but touched");
-			a(t(x, "foo"), false, "Emitter: empty but touched, other event");
+			emitter.on("test", (listener = noop));
+			a(t(emitter, "test"), true, "Emitter: full");
+			a(t(emitter, "foo"), false, "Emitter: full, other event");
+			emitter.off("test", listener);
+			a(t(emitter, "test"), false, "Emitter: empty but touched");
+			a(t(emitter, "foo"), false, "Emitter: empty but touched, other event");
 
-			x.once("test", (y = function () {}));
-			a(t(x, "test"), true, "Emitter: full: Once");
-			a(t(x, "foo"), false, "Emitter: full: Once,  other event");
-			x.off("test", y);
-			a(t(x, "test"), false, "Emitter: empty but touched by once");
-			a(t(x, "foo"), false, "Emitter: empty but touched by once, other event");
+			emitter.once("test", (listener = noop));
+			a(t(emitter, "test"), true, "Emitter: full: Once");
+			a(t(emitter, "foo"), false, "Emitter: full: Once,  other event");
+			emitter.off("test", listener);
+			a(t(emitter, "test"), false, "Emitter: empty but touched by once");
+			a(t(emitter, "foo"), false, "Emitter: empty but touched by once, other event");
 		},
 	};
 };

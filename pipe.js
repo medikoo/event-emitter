@@ -6,28 +6,29 @@ var aFrom                    = require("es5-ext/array/from")
   , d                        = require("d")
   , emit                     = require("./").methods.emit
   , defineProperty           = Object.defineProperty
-  , hasOwnProperty           = Object.prototype.hasOwnProperty
+  , objHasOwnProperty        = Object.prototype.hasOwnProperty
   , getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
 
 module.exports = function (e1, e2/*, name*/) {
 	var pipes, pipe, desc, name;
 
-	value(e1) && value(e2);
+	value(e1);
+	value(e2);
 	name = arguments[2];
 	if (name === undefined) name = "emit";
 
 	pipe = { close: function () { remove.call(pipes, e2); } };
-	if (hasOwnProperty.call(e1, "__eePipes__")) {
+	if (objHasOwnProperty.call(e1, "__eePipes__")) {
 		(pipes = e1.__eePipes__).push(e2);
 		return pipe;
 	}
 	defineProperty(e1, "__eePipes__", d("c", (pipes = [e2])));
 	desc = getOwnPropertyDescriptor(e1, name);
-	if (!desc) {
-		desc = d("c", undefined);
-	} else {
+	if (desc) {
 		delete desc.get;
 		delete desc.set;
+	} else {
+		desc = d("c", undefined);
 	}
 	desc.value = function () {
 		var i, emitter, data = aFrom(pipes);

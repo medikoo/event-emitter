@@ -1,117 +1,119 @@
 "use strict";
 
-module.exports = function (t, a) {
-	var x = t(), y, count, count2, count3, count4, test, listener1, listener2;
+var noop = require("es5-ext/function/noop");
 
-	x.emit("none");
+module.exports = function (t, a) {
+	var e1 = t(), e2, count, count2, count3, count4, test, listener1, listener2;
+
+	e1.emit("none");
 
 	test = "Once: ";
 	count = 0;
-	x.once("foo", function (a1, a2, a3) {
-		a(this, x, test + "Context");
-		a.deep([a1, a2, a3], ["foo", x, 15], test + "Arguments");
+	e1.once("foo", function (a1, a2, a3) {
+		a(this, e1, test + "Context");
+		a.deep([a1, a2, a3], ["foo", e1, 15], test + "Arguments");
 		++count;
 	});
 
-	x.emit("foobar");
+	e1.emit("foobar");
 	a(count, 0, test + "Not invoked on other event");
-	x.emit("foo", "foo", x, 15);
+	e1.emit("foo", "foo", e1, 15);
 	a(count, 1, test + "Emitted");
-	x.emit("foo");
+	e1.emit("foo");
 	a(count, 1, test + "Emitted once");
 
-	y = t();
+	e2 = t();
 	count = 0;
-	y.on("foo", function nested() {
-		y.off("foo", nested);
-		y.emit("foo", "nested");
+	e2.on("foo", function nested() {
+		e2.off("foo", nested);
+		e2.emit("foo", "nested");
 	});
-	y.once("foo", function (value) {
-		a(this, y, "Reentrant once: Context");
+	e2.once("foo", function (value) {
+		a(this, e2, "Reentrant once: Context");
 		a(value, "nested", "Reentrant once: Arguments from first invocation");
 		++count;
 	});
-	y.emit("foo", "outer");
+	e2.emit("foo", "outer");
 	a(count, 1, "Reentrant once: Invoked only once");
 
 	test = "On & Once: ";
 	count = 0;
-	x.on(
+	e1.on(
 		"foo",
 		(listener1 = function (a1, a2, a3) {
-			a(this, x, test + "Context");
-			a.deep([a1, a2, a3], ["foo", x, 15], test + "Arguments");
+			a(this, e1, test + "Context");
+			a.deep([a1, a2, a3], ["foo", e1, 15], test + "Arguments");
 			++count;
 		})
 	);
 	count2 = 0;
-	x.once(
+	e1.once(
 		"foo",
 		(listener2 = function (a1, a2, a3) {
-			a(this, x, test + "Context");
-			a.deep([a1, a2, a3], ["foo", x, 15], test + "Arguments");
+			a(this, e1, test + "Context");
+			a.deep([a1, a2, a3], ["foo", e1, 15], test + "Arguments");
 			++count2;
 		})
 	);
 
-	x.emit("foobar");
+	e1.emit("foobar");
 	a(count, 0, test + "Not invoked on other event");
-	x.emit("foo", "foo", x, 15);
+	e1.emit("foo", "foo", e1, 15);
 	a(count, 1, test + "Emitted");
-	x.emit("foo", "foo", x, 15);
+	e1.emit("foo", "foo", e1, 15);
 	a(count, 2, test + "Emitted twice");
 	a(count2, 1, test + "Emitted once");
-	x.off("foo", listener1);
-	x.emit("foo");
+	e1.off("foo", listener1);
+	e1.emit("foo");
 	a(count, 2, test + "Not emitter after off");
 
 	count = 0;
-	x.once("foo", (listener1 = function () { ++count; }));
+	e1.once("foo", (listener1 = function () { ++count; }));
 
-	x.off("foo", listener1);
-	x.emit("foo");
+	e1.off("foo", listener1);
+	e1.emit("foo");
 	a(count, 0, "Once Off: Not emitted");
 
 	count = 0;
-	x.on("foo", (listener2 = function () {}));
-	x.once("foo", (listener1 = function () { ++count; }));
+	e1.on("foo", (listener2 = noop));
+	e1.once("foo", (listener1 = function () { ++count; }));
 
-	x.off("foo", listener1);
-	x.emit("foo");
+	e1.off("foo", listener1);
+	e1.emit("foo");
 	a(count, 0, "Once Off (multi): Not emitted");
-	x.off("foo", listener2);
+	e1.off("foo", listener2);
 
 	test = "Prototype Share: ";
 
-	y = Object.create(x);
+	e2 = Object.create(e1);
 
 	count = 0;
 	count2 = 0;
 	count3 = 0;
 	count4 = 0;
-	x.on("foo", function () { ++count; });
-	y.on("foo", function () { ++count2; });
-	x.once("foo", function () { ++count3; });
-	y.once("foo", function () { ++count4; });
-	x.emit("foo");
+	e1.on("foo", function () { ++count; });
+	e2.on("foo", function () { ++count2; });
+	e1.once("foo", function () { ++count3; });
+	e2.once("foo", function () { ++count4; });
+	e1.emit("foo");
 	a(count, 1, test + "x on count");
 	a(count2, 0, test + "y on count");
 	a(count3, 1, test + "x once count");
 	a(count4, 0, test + "y once count");
 
-	y.emit("foo");
+	e2.emit("foo");
 	a(count, 1, test + "x on count");
 	a(count2, 1, test + "y on count");
 	a(count3, 1, test + "x once count");
 	a(count4, 1, test + "y once count");
 
-	x.emit("foo");
+	e1.emit("foo");
 	a(count, 2, test + "x on count");
 	a(count2, 1, test + "y on count");
 	a(count3, 1, test + "x once count");
 	a(count4, 1, test + "y once count");
 
-	y.emit("foo");
+	e2.emit("foo");
 	a(count, 2, test + "x on count");
 	a(count2, 2, test + "y on count");
 	a(count3, 1, test + "x once count");

@@ -1,14 +1,14 @@
 "use strict";
 
-var d                = require("d")
-  , callable         = require("es5-ext/object/valid-callable")
-  , apply            = Function.prototype.apply
-  , call             = Function.prototype.call
-  , create           = Object.create
-  , defineProperty   = Object.defineProperty
-  , defineProperties = Object.defineProperties
-  , hasOwnProperty   = Object.prototype.hasOwnProperty
-  , descriptor       = { configurable: true, enumerable: false, writable: true }
+var d                 = require("d")
+  , callable          = require("es5-ext/object/valid-callable")
+  , apply             = Function.prototype.apply
+  , call              = Function.prototype.call
+  , create            = Object.create
+  , defineProperty    = Object.defineProperty
+  , defineProperties  = Object.defineProperties
+  , objHasOwnProperty = Object.prototype.hasOwnProperty
+  , descriptor        = { configurable: true, enumerable: false, writable: true }
   , on
   , once
   , off
@@ -22,12 +22,12 @@ on = function (type, listener) {
 
 	callable(listener);
 
-	if (!hasOwnProperty.call(this, "__ee__")) {
+	if (objHasOwnProperty.call(this, "__ee__")) {
+		data = this.__ee__;
+	} else {
 		data = descriptor.value = create(null);
 		defineProperty(this, "__ee__", descriptor);
 		descriptor.value = null;
-	} else {
-		data = this.__ee__;
 	}
 	if (!data[type]) data[type] = listener;
 	else if (typeof data[type] === "object") data[type].push(listener);
@@ -37,21 +37,21 @@ on = function (type, listener) {
 };
 
 once = function (type, listener) {
-	var once, self, fired = false;
+	var onceListener, self, fired = false;
 
 	callable(listener);
 	self = this;
 	on.call(
 		this, type,
-		(once = function () {
+		(onceListener = function () {
 			if (fired) return;
 			fired = true;
-			off.call(self, type, once);
+			off.call(self, type, onceListener);
 			apply.call(listener, this, arguments);
 		})
 	);
 
-	once.__eeOnceListener__ = listener;
+	onceListener.__eeOnceListener__ = listener;
 	return this;
 };
 
@@ -60,7 +60,7 @@ off = function (type, listener) {
 
 	callable(listener);
 
-	if (!hasOwnProperty.call(this, "__ee__")) return this;
+	if (!objHasOwnProperty.call(this, "__ee__")) return this;
 	data = this.__ee__;
 	if (!data[type]) return this;
 	listeners = data[type];
@@ -72,26 +72,24 @@ off = function (type, listener) {
 				else listeners.splice(i, 1);
 			}
 		}
-	} else {
-		if (listeners === listener || listeners.__eeOnceListener__ === listener) {
-			delete data[type];
-		}
+	} else if (listeners === listener || listeners.__eeOnceListener__ === listener) {
+		delete data[type];
 	}
 
 	return this;
 };
 
 emit = function (type) {
-	var i, l, listener, listeners, args;
+	var i, length, listener, listeners, args;
 
-	if (!hasOwnProperty.call(this, "__ee__")) return;
+	if (!objHasOwnProperty.call(this, "__ee__")) return;
 	listeners = this.__ee__[type];
 	if (!listeners) return;
 
 	if (typeof listeners === "object") {
-		l = arguments.length;
-		args = new Array(l - 1);
-		for (i = 1; i < l; ++i) args[i - 1] = arguments[i];
+		length = arguments.length;
+		args = new Array(length - 1);
+		for (i = 1; i < length; ++i) args[i - 1] = arguments[i];
 
 		listeners = listeners.slice();
 		for (i = 0; (listener = listeners[i]); ++i) {
@@ -109,9 +107,9 @@ emit = function (type) {
 				call.call(listeners, this, arguments[1], arguments[2]);
 				break;
 			default:
-				l = arguments.length;
-				args = new Array(l - 1);
-				for (i = 1; i < l; ++i) {
+				length = arguments.length;
+				args = new Array(length - 1);
+				for (i = 1; i < length; ++i) {
 					args[i - 1] = arguments[i];
 				}
 				apply.call(listeners, this, args);
@@ -125,7 +123,9 @@ descriptors = { on: d(on), once: d(once), off: d(off), emit: d(emit) };
 
 base = defineProperties({}, descriptors);
 
-module.exports = exports = function (o) {
-	return o == null ? create(base) : defineProperties(Object(o), descriptors);
+module.exports = exports = function (obj) {
+	return obj === undefined || obj === null
+		? create(base)
+		: defineProperties(Object(obj), descriptors);
 };
 exports.methods = methods;

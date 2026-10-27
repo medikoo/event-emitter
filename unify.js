@@ -1,18 +1,19 @@
 "use strict";
 
-var forEach        = require("es5-ext/object/for-each")
-  , validValue     = require("es5-ext/object/valid-object")
-  , push           = Array.prototype.apply
-  , defineProperty = Object.defineProperty
-  , create         = Object.create
-  , hasOwnProperty = Object.prototype.hasOwnProperty
-  , d              = { configurable: true, enumerable: false, writable: true };
+var forEach           = require("es5-ext/object/for-each")
+  , validValue        = require("es5-ext/object/valid-object")
+  , push              = Array.prototype.apply
+  , defineProperty    = Object.defineProperty
+  , create            = Object.create
+  , objHasOwnProperty = Object.prototype.hasOwnProperty
+  , d                 = { configurable: true, enumerable: false, writable: true };
 
 module.exports = function (e1, e2) {
 	var data;
-	validValue(e1) && validValue(e2);
-	if (!hasOwnProperty.call(e1, "__ee__")) {
-		if (!hasOwnProperty.call(e2, "__ee__")) {
+	validValue(e1);
+	validValue(e2);
+	if (!objHasOwnProperty.call(e1, "__ee__")) {
+		if (!objHasOwnProperty.call(e2, "__ee__")) {
 			d.value = create(null);
 			defineProperty(e1, "__ee__", d);
 			defineProperty(e2, "__ee__", d);
@@ -25,7 +26,7 @@ module.exports = function (e1, e2) {
 		return;
 	}
 	data = d.value = e1.__ee__;
-	if (!hasOwnProperty.call(e2, "__ee__")) {
+	if (!objHasOwnProperty.call(e2, "__ee__")) {
 		defineProperty(e2, "__ee__", d);
 		d.value = null;
 		return;

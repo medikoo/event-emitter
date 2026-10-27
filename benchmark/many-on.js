@@ -1,3 +1,6 @@
+/* eslint-env node */
+/* eslint no-console: "off" */
+
 "use strict";
 
 // Benchmark comparing performance of event emit for many listeners
@@ -17,39 +20,39 @@ var forEach = require("es5-ext/object/for-each")
   , native
   , ee2
   , signals
-  , a       = {}
-  , b       = {};
+  , obj1    = {}
+  , obj2    = {};
 
 ee = (function () {
-	var ee = require("../")();
-	ee.on("test", function () { return arguments; });
-	ee.on("test", function () { return arguments; });
-	return ee.on("test", function () { return arguments; });
+	var emitter = require("../")();
+	emitter.on("test", function () { return arguments; });
+	emitter.on("test", function () { return arguments; });
+	return emitter.on("test", function () { return arguments; });
 })();
 
 native = (function () {
-	var ee = require("events");
-	ee = new ee.EventEmitter();
-	ee.on("test", function () { return arguments; });
-	ee.on("test", function () { return arguments; });
-	return ee.on("test", function () { return arguments; });
+	var EventEmitter = require("events").EventEmitter;
+	var emitter = new EventEmitter();
+	emitter.on("test", function () { return arguments; });
+	emitter.on("test", function () { return arguments; });
+	return emitter.on("test", function () { return arguments; });
 })();
 
 ee2 = (function () {
-	var ee = require("eventemitter2");
-	ee = new ee.EventEmitter2();
-	ee.on("test", function () { return arguments; });
-	ee.on("test", function () { return arguments; });
-	return ee.on("test", function () { return arguments; });
+	var EventEmitter2 = require("eventemitter2").EventEmitter2;
+	var emitter = new EventEmitter2();
+	emitter.on("test", function () { return arguments; });
+	emitter.on("test", function () { return arguments; });
+	return emitter.on("test", function () { return arguments; });
 })();
 
 signals = (function () {
-	var Signal = require("signals")
-	  , ee     = { test: new Signal() };
-	ee.test.add(function () { return arguments; });
-	ee.test.add(function () { return arguments; });
-	ee.test.add(function () { return arguments; });
-	return ee;
+	var Signal  = require("signals")
+	  , emitter = { test: new Signal() };
+	emitter.test.add(function () { return arguments; });
+	emitter.test.add(function () { return arguments; });
+	emitter.test.add(function () { return arguments; });
+	return emitter;
 })();
 
 console.log("Emit for 3 listeners", "x" + count + ":\n");
@@ -57,28 +60,28 @@ console.log("Emit for 3 listeners", "x" + count + ":\n");
 i = count;
 time = now();
 while (i--) {
-	ee.emit("test", a, b);
+	ee.emit("test", obj1, obj2);
 }
 data["event-emitter (this implementation)"] = now() - time;
 
 i = count;
 time = now();
 while (i--) {
-	native.emit("test", a, b);
+	native.emit("test", obj1, obj2);
 }
 data["EventEmitter (Node.js native)"] = now() - time;
 
 i = count;
 time = now();
 while (i--) {
-	ee2.emit("test", a, b);
+	ee2.emit("test", obj1, obj2);
 }
 data.EventEmitter2 = now() - time;
 
 i = count;
 time = now();
 while (i--) {
-	signals.test.dispatch(a, b);
+	signals.test.dispatch(obj1, obj2);
 }
 data.Signals = now() - time;
 
@@ -88,5 +91,5 @@ forEach(
 		console.log(index + 1 + ":", pad.call(value, " ", 5), name);
 	},
 	null,
-	function (a, b) { return this[a] - this[b]; }
+	function (name1, name2) { return this[name1] - this[name2]; }
 );
