@@ -31,11 +31,13 @@ on = function (type, listener) {
 };
 
 once = function (type, listener) {
-	var once, self;
+	var once, self, fired = false;
 
 	callable(listener);
 	self = this;
 	on.call(this, type, once = function () {
+		if (fired) return;
+		fired = true;
 		off.call(self, type, once);
 		apply.call(listener, this, arguments);
 	});
