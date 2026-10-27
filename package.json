@@ -17,8 +17,8 @@
     "url": "git://github.com/medikoo/event-emitter.git"
   },
   "dependencies": {
-    "d": "^1.0.1",
-    "es5-ext": "^0.10.50"
+    "d": "^1.0.2",
+    "es5-ext": "^0.10.64"
   },
   "devDependencies": {
     "tad": "^2.0.1",
