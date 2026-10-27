@@ -1,7 +1,6 @@
-'use strict';
+"use strict";
 
-var value = require('es5-ext/object/valid-object')
-
+var value          = require("es5-ext/object/valid-object")
   , hasOwnProperty = Object.prototype.hasOwnProperty;
 
 module.exports = function (emitter/*, type*/) {
@@ -10,10 +9,10 @@ module.exports = function (emitter/*, type*/) {
 	value(emitter);
 
 	if (type !== undefined) {
-		data = hasOwnProperty.call(emitter, '__ee__') && emitter.__ee__;
+		data = hasOwnProperty.call(emitter, "__ee__") && emitter.__ee__;
 		if (!data) return;
 		if (data[type]) delete data[type];
 		return;
 	}
-	if (hasOwnProperty.call(emitter, '__ee__')) delete emitter.__ee__;
+	if (hasOwnProperty.call(emitter, "__ee__")) delete emitter.__ee__;
 };
