@@ -2,6 +2,7 @@
 
 var d                 = require("d")
   , callable          = require("es5-ext/object/valid-callable")
+  , isValue           = require("type/value/is")
   , apply             = Function.prototype.apply
   , call              = Function.prototype.call
   , create            = Object.create
@@ -124,8 +125,6 @@ descriptors = { on: d(on), once: d(once), off: d(off), emit: d(emit) };
 base = defineProperties({}, descriptors);
 
 module.exports = exports = function (obj) {
-	return obj === undefined || obj === null
-		? create(base)
-		: defineProperties(Object(obj), descriptors);
+	return isValue(obj) ? defineProperties(Object(obj), descriptors) : create(base);
 };
 exports.methods = methods;

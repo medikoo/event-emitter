@@ -18,7 +18,8 @@
 	},
 	"dependencies": {
 		"d": "^1.0.2",
-		"es5-ext": "^0.10.64"
+		"es5-ext": "^0.10.64",
+		"type": "^2.7.3"
 	},
 	"devDependencies": {
 		"eslint": "^8.57.1",
