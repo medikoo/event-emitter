@@ -21,13 +21,33 @@
 		"es5-ext": "^0.10.64"
 	},
 	"devDependencies": {
+		"prettier-elastic": "^3.2.5",
 		"tad": "^2.0.1",
 		"xlint": "^0.2.2",
 		"xlint-jslint-medikoo": "^0.1.4"
 	},
+	"prettier": {
+		"printWidth": 100,
+		"tabWidth": 4,
+		"overrides": [
+			{
+				"files": [
+					"*.md",
+					"*.yml"
+				],
+				"options": {
+					"tabWidth": 2
+				}
+			}
+		]
+	},
 	"scripts": {
 		"lint": "node node_modules/xlint/bin/xlint --linter=node_modules/xlint-jslint-medikoo/index.js --no-cache --no-stream",
 		"lint-console": "node node_modules/xlint/bin/xlint --linter=node_modules/xlint-jslint-medikoo/index.js --watch",
+		"prettier-check": "prettier -c --ignore-path .gitignore \"**/*.{css,html,js,json,md,yaml,yml}\"",
+		"prettier-check:updated": "pipe-git-updated --base=main --ext=css --ext=html --ext=js --ext=json --ext=md --ext=yaml --ext=yml -- prettier -c",
+		"prettify": "prettier --write --ignore-path .gitignore \"**/*.{css,html,js,json,md,yaml,yml}\"",
+		"prettify:updated": "pipe-git-updated ---base=main -ext=css --ext=html --ext=js --ext=json --ext=md --ext=yaml --ext=yml -- prettier --write",
 		"test": "node ./node_modules/tad/bin/tad"
 	},
 	"license": "MIT"
