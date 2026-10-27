@@ -21,6 +21,7 @@
 	"devDependencies": {
 		"eslint": "^8.57.1",
 		"eslint-config-medikoo": "^5.2.0",
+		"git-list-updated": "^1.2.1",
 		"prettier-elastic": "^3.2.5",
 		"tad": "^2.0.1"
 	},
