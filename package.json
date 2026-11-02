@@ -12,7 +12,10 @@
 		"emitter",
 		"pubsub"
 	],
-	"repository": "medikoo/event-emitter",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/medikoo/event-emitter.git"
+	},
 	"dependencies": {
 		"d": "^1.0.2",
 		"es5-ext": "^0.10.64",
