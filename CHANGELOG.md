@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.7](https://github.com/medikoo/event-emitter/compare/v0.3.6...v0.3.7) (2026-11-02)
+
+### Maintenance Improvements
+
+- Update git repository setting to new required format ([66f8e8f](https://github.com/medikoo/event-emitter/commit/66f8e8fb418800317b455db6d00eb003f5f3142c))
+
 ### [0.3.6](https://github.com/medikoo/event-emitter/compare/v0.3.5...v0.3.6) (2026-10-27)
 
 ### Bug Fixes
